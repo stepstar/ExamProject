@@ -1,1 +1,1 @@
-console.log("my project init");
+console.log("666");
