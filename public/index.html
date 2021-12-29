@@ -45,11 +45,11 @@
 
     <main class="px-3">
       <h1>Please sign in.</h1>
-      
+      <h2 style="color: red;"><%=result%></h2>
       <form action="/input" method="POST">
         <div class="form-floating">
-          <input type="text" class="form-control" name="account" placeholder="Account">
-          <label for="floatingInput" style="color: rgba(0, 0, 0, 0.452);">Account</label>
+          <input type="text" class="form-control" name="username" placeholder="Username">
+          <label for="floatingInput" style="color: rgba(0, 0, 0, 0.452);">Username</label>
         </div>
         <div class="form-floating">
           <input type="password" class="form-control" name="password" placeholder="Password">
