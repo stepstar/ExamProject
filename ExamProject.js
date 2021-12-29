@@ -13,7 +13,6 @@ app.use('/index', (req, res) => {
       res.end(str);
     }
   });
-
 });
 
 app.use('/main', (req, res) => {
