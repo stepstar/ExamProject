@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>***管理系统</title>
+  <title>智慧销售管理系统</title>
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -46,13 +46,13 @@
     <main class="px-3">
       <h1>Please sign in.</h1>
       
-      <form>
+      <form action="/input" method="POST">
         <div class="form-floating">
-          <input type="text" class="form-control" id="floatingInput" placeholder="Account">
-          <label for="floatingInput" style="color: rgba(0, 0, 0, .5);">Account</label>
+          <input type="text" class="form-control" name="account" placeholder="Account">
+          <label for="floatingInput" style="color: rgba(0, 0, 0, 0.452);">Account</label>
         </div>
         <div class="form-floating">
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+          <input type="password" class="form-control" name="password" placeholder="Password">
           <label for="floatingPassword" style="color: rgba(0, 0, 0, .5);">Password</label>
         </div>
         <button class="btn btn-lg btn-secondary fw-bold border-white bg-white mt-3" type="submit">Login</button>
