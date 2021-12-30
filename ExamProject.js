@@ -13,7 +13,14 @@ const userSchema = {
   password: String,
   super: Boolean
 }
+const goodSchema = {
+  id: String,
+  name: String,
+  price: Number,
+  sta: Boolean
+}
 var User = mongoose.model('User', userSchema);
+var Good = mongoose.model('Good', goodSchema);
 
 //index --> login page
 app.use('/index', function (req, res) {
@@ -73,5 +80,13 @@ app.post('/input', function(req, res, next) {
   });
 });
 
+//数据处理路由
+app.use('/getGoodsData',function(req,res){
+  Good.find({ }, (err, good)=>{
+    /* console.log(good); */
+    res.send(JSON.stringify(good)) ;
+    });
+   
+});
 
 app.listen(60123);
