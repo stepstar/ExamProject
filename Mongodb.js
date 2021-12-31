@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://172.21.2.236:27017/190110910123');
-const userSchema = {
+const noticeSchema = {
     id: String,
-    username: String,
-    password: String,
-    super: Boolean
+    title: String,
+    content: String,
+    date: String
   }
-var User = mongoose.model('User', userSchema);
+var Notice = mongoose.model('Notice', noticeSchema);
 
-const kitty = new User({ id:'005', username:'user03', password:'user03',super:true });
+const kitty = new Notice({ id:'001', title:'this is title', content:'this is content',date: '2021-12-30' });
 kitty.save().then(() => console.log(kitty));
 
 

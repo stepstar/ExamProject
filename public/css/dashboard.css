@@ -98,3 +98,25 @@ body {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
+/**
+* notice
+*/
+
+.notice-title{
+  font-size: large;
+  margin: .5rem;
+  justify-content:center;
+  align-items: center;
+  height: 3.5rem;
+  background-color:#eee;
+}
+
+.notice-content{
+  margin: .5rem;
+  padding: .8rem;
+  font-size: medium;
+  border: 1px solid #727272;
+  border-radius: .25rem;
+  height: 10rem;
+  background-color: #94c6d3;
+}

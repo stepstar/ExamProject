@@ -19,8 +19,15 @@ const goodSchema = {
   price: Number,
   sta: Boolean
 }
+const noticeSchema = {
+  id: String,
+  title: String,
+  content: String,
+  date: Date
+}
 var User = mongoose.model('User', userSchema);
 var Good = mongoose.model('Good', goodSchema);
+var Notice = mongoose.model('Notice',noticeSchema);
 
 //index --> login page
 app.use('/index', function (req, res) {
@@ -87,6 +94,40 @@ app.use('/getGoodsData',function(req,res){
     res.send(JSON.stringify(good)) ;
     });
    
+});
+
+app.use('/getNoticesData',function(req,res){
+  Notice.find({ }, (err, good)=>{
+    /* console.log(good); */
+    res.send(JSON.stringify(good)) ;
+    });
+   
+});
+
+app.get('/notice',function(req,res){
+  Notice.findOne({id: req.query.id},function(err,notice){
+    res.send(JSON.stringify(notice)) ;
+  });
+  console.log(req.query);
+});
+app.put('/notice',function(req,res){
+  Notice.create({
+    id: req.body.id,
+    title: req.body.title,
+    content: req.body.content,
+    date: req.body.time
+  },function(err,notice){
+    if(err) console.log(err);
+  });
+  console.log(req.body);
+  res.end();
+});
+app.delete('/notice',function(req,res){
+  Notice.deleteOne({id: req.body.id},function(err){
+    if(err)console.log(err);
+  });
+  console.log(req.body);
+  res.end();
 });
 
 app.listen(60123);
