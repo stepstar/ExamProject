@@ -1,0 +1,21 @@
+// MongoDB Playground
+// To disable this template go to Settings | MongoDB | Use Default Template For Playground.
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+// Select the database to use.
+use('190110910123');
+/* db.goods.drop(); */
+// Insert a few documents into the sales collection.
+db.shops.insertMany([
+  {'id':'jd01', name:'JEEP', website:'https://mall.jd.com/index-1000111741.html'},
+  {'id':'jd0fs1', name:'FELA', website:'https://mall.jd.hk/shop/filashow/index.html'},
+  {'id':'jd545', name:'A21', website:'https://mall.jd.com/index-38360.html'},
+  {'id':'jd02', name:'JEEP', website:'https://mall.jd.com/index-1000111741.html'},
+  {'id':'jd04', name:'JEEP', website:'https://mall.jd.com/index-1000111741.html'},
+  {'id':'jd0ss', name:'JEEP', website:'https://mall.jd.com/index-1000111741.html'},
+  {'id':'other01', name:'PDD', website:'https://pinduoduo.com/home/boyshirt'},
+  
+  ]);
+
+

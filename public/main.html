@@ -73,7 +73,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="jump">
                 <span data-feather="bar-chart-2"></span>
                 店铺主页面
               </a>
@@ -157,9 +157,6 @@
         console.log('error');
       }
     });
-
-
-
   });
 
   $('#noticesBtn').click(function () {
@@ -228,7 +225,6 @@
           if(title==''||content==''){
             alert('输入不能为空!')
           }else{
-            
             $.ajax({
               url: '/notice',
               type: 'PUT',
@@ -255,7 +251,35 @@
 
   });
   
-  
+  $('#shopsBtn').click(function () {
+    $('.nav-link').removeClass('active');
+    $('#goodsBtn').addClass('active');
+    $('main').empty();
+    var txt = "";
+    var txtstart = "<h2>店铺信息</h2> <table class=\"table caption-top\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">标识码</th><th scope=\"col\">店铺名称</th><th scope=\"col\">网址</th></tr></thead>";
+    var txt2 = "<tbody><tr><th scope=\"row\">", txt3 = "</th>";//id
+    var txt4 = "<td>", txt5 = "</td>";//name&website
+    var txt6 = "</tr></tbody>";
+    var txtend = "</table>";
+    $.ajax({
+      url: '/getShopsData',
+      type: 'POST',
+      dataType: 'json',
+      success: function (data) {
+        txt = "";
+        txt += txtstart;
+        $.each(data, function (index, item) {
+          txt += txt2 + index + txt3 + txt4 + item.id + txt5 + txt4 + item.name + txt5 + txt4;
+          txt += "<a href=\" "+ item.website +" \" class=\"link-info\">店铺链接</a>"+ txt5;
+        });
+        txt += txtend;
+        $('main').append(txt);
+      },
+      error: function () {
+        console.log('error');
+      }
+    });
+  });
 
 </script>
 

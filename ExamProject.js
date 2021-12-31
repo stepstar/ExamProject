@@ -25,10 +25,15 @@ const noticeSchema = {
   content: String,
   date: Date
 }
+const shopSchema = {
+  id: String,
+  name: String,
+  website: String
+}
 var User = mongoose.model('User', userSchema);
 var Good = mongoose.model('Good', goodSchema);
 var Notice = mongoose.model('Notice',noticeSchema);
-
+var Shop = mongoose.model('Shop',shopSchema);
 //index --> login page
 app.use('/index', function (req, res) {
   ejs.renderFile('public/index.html', {result:''}, function (err, str) {
@@ -96,12 +101,20 @@ app.use('/getGoodsData',function(req,res){
    
 });
 
+app.use('/getshopsData',function(req,res){
+  Shop.find({ }, (err, shop)=>{
+    /* console.log(good); */
+    res.send(JSON.stringify(shop)) ;
+    });
+   
+});
+
 app.use('/getNoticesData',function(req,res){
   Notice.find({ }, (err, good)=>{
     /* console.log(good); */
     res.send(JSON.stringify(good)) ;
     });
-   
+
 });
 
 app.get('/notice',function(req,res){
@@ -128,6 +141,17 @@ app.delete('/notice',function(req,res){
   });
   console.log(req.body);
   res.end();
+});
+
+app.use('/jump', function (req, res) {
+  ejs.renderFile('public/shopindexdemo.html', {result:''}, function (err, str) {
+    if (err) console.log(err);
+    else {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/html');
+      res.end(str);
+    }
+  });
 });
 
 app.listen(60123);

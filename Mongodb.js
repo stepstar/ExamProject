@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://172.21.2.236:27017/190110910123');
-const noticeSchema = {
+const shopSchema = {
     id: String,
-    title: String,
-    content: String,
-    date: String
-  }
-var Notice = mongoose.model('Notice', noticeSchema);
+    name: String,
+    website: String
+}
+var Shop = mongoose.model('Shop', shopSchema);
 
-const kitty = new Notice({ id:'001', title:'this is title', content:'this is content',date: '2021-12-30' });
+const kitty = new Shop({ id:'001', name:'GXG官方旗舰店', website:'https://shop62224542.taobao.com/?spm=a230r.7195193.1997079397.2.290954a12KUsIX' });
 kitty.save().then(() => console.log(kitty));
 
 
