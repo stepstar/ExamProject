@@ -35,7 +35,7 @@
       data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <input class="form-control form-control-dark w-100" type="text" aria-label="Search">
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
         <a class="nav-link">hello, <%=username%> ( <%=admin%> ) </a>
@@ -49,7 +49,7 @@
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a id="dashboardBtn" class="nav-link active" aria-current="page" href="#">
+              <a id="homeBtn" class="nav-link active" aria-current="page" href="#">
                 <span data-feather="home"></span>
                 数据面板
               </a>
@@ -83,29 +83,9 @@
       </nav>
 
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <h1 class="h2">Dashboard</h1>
+        <h1 class="h2">销售数据面板</h1>
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
-        <div class="row mt-3">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">编号</th>
-                <th scope="col">标题</th>
-                <th scope="col">时间</th>
-                <th scope="col">操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </main>
     </div>
   </div>
@@ -118,16 +98,62 @@
   integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
   integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
-<script src="js/dashboard.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <script>
-  function getCurrentDate(){
-    var date=new Date();
-    var year=date.getFullYear();
-    var month=date.getMonth()+1;
-    var day=date.getDate();
-    return year+"-"+month+"-"+day;
+  function getCurrentDate() {
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    return year + "-" + month + "-" + day;
   }
+  function dashboard() {
+    $.ajax({
+      url: '/getSalesData',
+      type: 'POST',
+      dataType: 'json',
+      success: function (data) {
+        var label = [], count = []
+        data.forEach(item => {
+          label.push(item.shop_id);
+          count.push(item.number);
+        })
+        
+        feather.replace();
+        // Graphs
+        var ctx = document.getElementById('myChart')
+        // eslint-disable-next-line no-unused-vars
+        var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: label,
+            datasets: [{
+              data: count,
+              lineTension: 0,
+              backgroundColor: 'rgba(54,162,235,0.3)',
+              borderColor: '#007bff',
+              borderWidth: 1,
+              pointBackgroundColor: '#007bff'
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: false
+                }
+              }]
+            },
+            legend: {
+              display: false
+            }
+          }
+        });
+      }
+    });
+  }
+  
+  dashboard();
 
   $('#goodsBtn').click(function () {
     $('.nav-link').removeClass('active');
@@ -191,48 +217,48 @@
           $.ajax({
             url: '/notice',
             type: 'GET',
-            data:{
+            data: {
               id: id
             },
-            dataType:'json',
+            dataType: 'json',
             success: function (data) {
               $('.notice-title').text(data.title);
               $('.notice-content').text(data.content);
             }
           });
-          
+
         });
 
         //2.删除公告
         $('.btn-delete').click(function () {
           var id = $(this).attr("id");
           $.ajax({
-              url: '/notice',
-              type: 'DELETE',
-              data:{
-                id: id
-              }
+            url: '/notice',
+            type: 'DELETE',
+            data: {
+              id: id
+            }
           });
           $('#noticesBtn').click();
         });
-        
+
         //3.发布公告
         $('#notice-create').click(function () {
           var title = $('#noticeTitle').val();
           var content = $('#noticeContent').val();
           $('#noticeTitle').val("");
           $('#noticeContent').val("");
-          if(title==''||content==''){
+          if (title == '' || content == '') {
             alert('输入不能为空!')
-          }else{
+          } else {
             $.ajax({
               url: '/notice',
               type: 'PUT',
-              data:{
-                id: getCurrentDate() +'-'+ Math.ceil(Math.random()*100), 
+              data: {
+                id: getCurrentDate() + '-' + Math.ceil(Math.random() * 100),
                 title: title,
                 content: content,
-                time: getCurrentDate()+'',
+                time: getCurrentDate() + '',
               }
             });
             /* $('.notice-title').text(title);
@@ -250,10 +276,10 @@
 
 
   });
-  
+
   $('#shopsBtn').click(function () {
     $('.nav-link').removeClass('active');
-    $('#goodsBtn').addClass('active');
+    $('#shopsBtn').addClass('active');
     $('main').empty();
     var txt = "";
     var txtstart = "<h2>店铺信息</h2> <table class=\"table caption-top\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">标识码</th><th scope=\"col\">店铺名称</th><th scope=\"col\">网址</th></tr></thead>";
@@ -270,7 +296,7 @@
         txt += txtstart;
         $.each(data, function (index, item) {
           txt += txt2 + index + txt3 + txt4 + item.id + txt5 + txt4 + item.name + txt5 + txt4;
-          txt += "<a href=\" "+ item.website +" \" class=\"link-info\">店铺链接</a>"+ txt5;
+          txt += "<a href=\" " + item.website + " \" class=\"link-info\">店铺链接</a>" + txt5;
         });
         txt += txtend;
         $('main').append(txt);
@@ -281,6 +307,7 @@
     });
   });
 
+  $('#homeBtn').click(function () { location.reload(); });
 </script>
 
 </html>

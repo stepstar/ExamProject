@@ -30,10 +30,16 @@ const shopSchema = {
   name: String,
   website: String
 }
+const saleSchema ={
+  shop_id: String,
+  number: Number
+}
 var User = mongoose.model('User', userSchema);
 var Good = mongoose.model('Good', goodSchema);
 var Notice = mongoose.model('Notice',noticeSchema);
 var Shop = mongoose.model('Shop',shopSchema);
+var Sale = mongoose.model('Sale',saleSchema);
+
 //index --> login page
 app.use('/index', function (req, res) {
   ejs.renderFile('public/index.html', {result:''}, function (err, str) {
@@ -154,4 +160,10 @@ app.use('/jump', function (req, res) {
   });
 });
 
+app.use('/getSalesData',function(req,res){
+  Sale.find({ }, (err, sale)=>{
+    res.send(JSON.stringify(sale)) ;
+  });
+
+});
 app.listen(60123);

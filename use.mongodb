@@ -5,17 +5,15 @@
 
 // Select the database to use.
 use('190110910123');
-/* db.goods.drop(); */
+//db.sales.drop(); 
 // Insert a few documents into the sales collection.
-db.shops.insertMany([
-  {'id':'jd01', name:'JEEP', website:'https://mall.jd.com/index-1000111741.html'},
-  {'id':'jd0fs1', name:'FELA', website:'https://mall.jd.hk/shop/filashow/index.html'},
-  {'id':'jd545', name:'A21', website:'https://mall.jd.com/index-38360.html'},
-  {'id':'jd02', name:'JEEP', website:'https://mall.jd.com/index-1000111741.html'},
-  {'id':'jd04', name:'JEEP', website:'https://mall.jd.com/index-1000111741.html'},
-  {'id':'jd0ss', name:'JEEP', website:'https://mall.jd.com/index-1000111741.html'},
-  {'id':'other01', name:'PDD', website:'https://pinduoduo.com/home/boyshirt'},
-  
-  ]);
+db.sales.insertMany([
+  { shop_id:'jd0fs1', number:1000},
+  { shop_id:'jd545', number:2360},
+  { shop_id:'jd04', number:5822},
+  { shop_id:'jd01', number:1200},
+  { shop_id:'jd02', number:800},
+  { shop_id:'other01', number:1820},  
+]);
 
 
