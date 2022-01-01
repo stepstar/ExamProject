@@ -127,7 +127,7 @@ app.get('/notice',function(req,res){
   Notice.findOne({id: req.query.id},function(err,notice){
     res.send(JSON.stringify(notice)) ;
   });
-  console.log(req.query);
+  //console.log(req.query);
 });
 app.put('/notice',function(req,res){
   Notice.create({
@@ -138,14 +138,14 @@ app.put('/notice',function(req,res){
   },function(err,notice){
     if(err) console.log(err);
   });
-  console.log(req.body);
+  //console.log(req.body);
   res.end();
 });
 app.delete('/notice',function(req,res){
   Notice.deleteOne({id: req.body.id},function(err){
     if(err)console.log(err);
   });
-  console.log(req.body);
+  //console.log(req.body);
   res.end();
 });
 

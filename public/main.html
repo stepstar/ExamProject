@@ -249,7 +249,7 @@
           $('#noticeTitle').val("");
           $('#noticeContent').val("");
           if (title == '' || content == '') {
-            alert('输入不能为空!')
+            alert('输入不能为空!');
           } else {
             $.ajax({
               url: '/notice',
@@ -307,7 +307,9 @@
     });
   });
 
-  $('#homeBtn').click(function () { location.reload(); });
+  $('#homeBtn').click(function () { 
+    location.reload(); 
+  });
 </script>
 
 </html>
